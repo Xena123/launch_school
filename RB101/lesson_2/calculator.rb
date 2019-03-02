@@ -1,29 +1,92 @@
 # Build a command line calculator that does the following:
 
-
-# 1. asks for 2 numbers
-Kernel.puts("Please input a number")
-first_number = Kernel.gets().chomp().to_i()
-Kernel.puts("Please input another number")
-second_number = Kernel.gets().chomp().to_i()
-
-
-# 2. asks for the type of operation to perform: add, subtract, multiply or divide
-Kernel.puts("Please give me an operator 1) add 2) subtract 3) multiply 4) divide")
-operator = Kernel.gets().chomp()
-result = 0
-
-if operator == '1'
-  result = first_number.to_i() + second_number.to_i()
-elsif operator == '2'
-  result = first_number.to_i() - second_number.to_i()
-elsif operator == '3'
-  result = first_number.to_i() * second_number.to_i()
-elsif operator == '4'
-  result = first_number.to_f() / second_number.to_f()
-else 
-  Kernel.puts("That is not a valid option")
+def prompt(message)
+  puts "=> #{message}"
 end
 
-# 3. displays the result
-Kernel.puts("The result is #{result}")
+def valid_number?(num)
+  num.to_i != 0
+end
+
+# 1. asks for 2 numbers
+prompt("Welcome to calculator, what is your name?")
+
+first_number = ''
+second_number = ''
+name = ''
+operator = ''
+
+loop do 
+  name = gets.chomp
+  if name.empty?
+    prompt("Make sure to use a valid name")
+  else 
+    break
+  end
+end
+
+prompt("Hi #{name}")
+
+loop do
+  loop do
+    prompt("Please input a number")
+    first_number = gets.chomp.to_i
+
+    if valid_number?(first_number)
+      break
+    else
+      prompt("That doesnt look like a valid number")
+    end
+  end
+
+  loop do
+    prompt("Please input another number")
+    second_number = gets.chomp.to_i
+
+    if valid_number?(second_number)
+      break
+    else
+      prompt("That doesnt look like a valid number")
+    end
+  end
+
+
+  # 2. asks for the type of operation to perform: add, subtract, multiply or divide
+  operator_prompt = <<-MSG
+    What operation would you like to perform?
+    1) Add
+    2) Subtract
+    3) Multiply
+    4) Divide
+  MSG
+  prompt(operator_prompt)
+
+  loop do
+    operator = gets.chomp
+    if %w(1 2 3 4).include?(operator)
+      break
+    else
+      prompt("Please choose 1, 2, 3 or 4")
+    end
+  end
+
+  result = case operator
+           when '1'
+            first_number.to_i + second_number.to_i
+           when '2'
+            first_number.to_i - second_number.to_i
+           when '3'
+            first_number.to_i * second_number.to_i
+           when '4'
+            first_number.to_f / second_number.to_f
+  end
+  # 3. displays the result
+  prompt("The result is #{result}")
+  prompt("Do you want to perform another calculation?")
+  answer = gets.chomp
+  break unless answer.downcase.start_with?('y')
+end
+
+
+
+
