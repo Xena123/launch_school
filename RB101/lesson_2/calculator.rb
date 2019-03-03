@@ -8,6 +8,19 @@ def valid_number?(num)
   num.to_i != 0
 end
 
+def operation_to_message(op)
+  case op
+  when '1'
+    'Adding'
+  when '2'
+    'Subtracting'
+  when '3'
+    'Multiplying'
+  when '4'
+    'Dividing'
+  end
+end
+
 # 1. asks for 2 numbers
 prompt("Welcome to calculator, what is your name?")
 
@@ -16,11 +29,11 @@ second_number = ''
 name = ''
 operator = ''
 
-loop do 
+loop do
   name = gets.chomp
   if name.empty?
     prompt("Make sure to use a valid name")
-  else 
+  else
     break
   end
 end
@@ -50,7 +63,6 @@ loop do
     end
   end
 
-
   # 2. asks for the type of operation to perform: add, subtract, multiply or divide
   operator_prompt = <<-MSG
     What operation would you like to perform?
@@ -70,23 +82,22 @@ loop do
     end
   end
 
+  prompt("#{operation_to_message(operator)} the two numbers...")
+
   result = case operator
            when '1'
-            first_number.to_i + second_number.to_i
+             first_number.to_i + second_number.to_i
            when '2'
-            first_number.to_i - second_number.to_i
+             first_number.to_i - second_number.to_i
            when '3'
-            first_number.to_i * second_number.to_i
+             first_number.to_i * second_number.to_i
            when '4'
-            first_number.to_f / second_number.to_f
-  end
+             first_number.to_f / second_number.to_f
+           end
+
   # 3. displays the result
   prompt("The result is #{result}")
   prompt("Do you want to perform another calculation?")
   answer = gets.chomp
   break unless answer.downcase.start_with?('y')
 end
-
-
-
-
