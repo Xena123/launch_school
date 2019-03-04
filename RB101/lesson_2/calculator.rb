@@ -4,8 +4,8 @@ def prompt(message)
   puts "=> #{message}"
 end
 
-def valid_number?(num)
-  num.to_i != 0
+def valid_number?(input)
+  input.to_i.to_s == input
 end
 
 def operation_to_message(op)
