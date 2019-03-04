@@ -1,28 +1,37 @@
-# Build a command line calculator that does the following:
+require 'yaml'
+MESSAGES = YAML.load_file('calculator_messages.yml')
 
 def prompt(message)
   puts "=> #{message}"
 end
 
-def valid_number?(input)
-  input.to_i.to_s == input
+def integer?(num)
+  num.to_i.to_s == num
+end
+
+def float?(num)
+  !!Float(num) rescue false
+end
+
+def number?(num)
+  integer?(num) || float?(num)
 end
 
 def operation_to_message(op)
-  case op
-  when '1'
-    'Adding'
-  when '2'
-    'Subtracting'
-  when '3'
-    'Multiplying'
-  when '4'
-    'Dividing'
-  end
+  message = case op
+            when '1'
+              'Adding'
+            when '2'
+              'Subtracting'
+            when '3'
+              'Multiplying'
+            when '4'
+              'Dividing'
+            end
+  message
 end
 
-# 1. asks for 2 numbers
-prompt("Welcome to calculator, what is your name?")
+prompt(MESSAGES['welcome'])
 
 first_number = ''
 second_number = ''
@@ -31,54 +40,46 @@ operator = ''
 
 loop do
   name = gets.chomp
-  if name.empty?
-    prompt("Make sure to use a valid name")
+  if name.strip.empty?
+    prompt(MESSAGES['valid_name'])
   else
     break
   end
 end
 
-prompt("Hi #{name}")
+prompt(format(MESSAGES['greeting'], name: name))
 
 loop do
   loop do
-    prompt("Please input a number")
-    first_number = gets.chomp.to_i
+    prompt(MESSAGES['first_number'])
+    first_number = gets.chomp
 
-    if valid_number?(first_number)
+    if number?(first_number)
       break
     else
-      prompt("That doesnt look like a valid number")
+      prompt(MESSAGES['not_number'])
     end
   end
 
   loop do
-    prompt("Please input another number")
-    second_number = gets.chomp.to_i
+    prompt(MESSAGES['second_number'])
+    second_number = gets.chomp
 
-    if valid_number?(second_number)
+    if number?(second_number)
       break
     else
-      prompt("That doesnt look like a valid number")
+      prompt(MESSAGES['not_number'])
     end
   end
 
-  # 2. asks for the type of operation to perform: add, subtract, multiply or divide
-  operator_prompt = <<-MSG
-    What operation would you like to perform?
-    1) Add
-    2) Subtract
-    3) Multiply
-    4) Divide
-  MSG
-  prompt(operator_prompt)
+  prompt(MESSAGES['operation'])
 
   loop do
     operator = gets.chomp
     if %w(1 2 3 4).include?(operator)
       break
     else
-      prompt("Please choose 1, 2, 3 or 4")
+      prompt(MESSAGES['please_choose'])
     end
   end
 
@@ -86,18 +87,20 @@ loop do
 
   result = case operator
            when '1'
-             first_number.to_i + second_number.to_i
+             first_number.to_f + second_number.to_f
            when '2'
-             first_number.to_i - second_number.to_i
+             first_number.to_f - second_number.to_f
            when '3'
-             first_number.to_i * second_number.to_i
+             first_number.to_f * second_number.to_f
            when '4'
              first_number.to_f / second_number.to_f
            end
 
-  # 3. displays the result
-  prompt("The result is #{result}")
-  prompt("Do you want to perform another calculation?")
+  prompt(format(MESSAGES['result'], result: result))
+  prompt(MESSAGES['another_calc'])
   answer = gets.chomp
-  break unless answer.downcase.start_with?('y')
+  if answer == 'y'
+    system('clear') || system('cls')
+  end
+  break unless answer == 'y'
 end
