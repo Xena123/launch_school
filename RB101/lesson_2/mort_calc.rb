@@ -49,7 +49,6 @@ loop do
   loop do
     prompt(MESSAGES['apr'])
     apr = gets.chomp.gsub(/[^0-9,.]/, "")
-    p apr
     if number?(apr)
       break
     else
@@ -79,7 +78,7 @@ loop do
 
   result = loan_amount * (monthly_int / (1 - (1 + monthly_int)**(-loan_dur_months)))
   result = result.round(2)
-  
+
   sleep(3)
 
   prompt(format(MESSAGES['result'], result: result))
