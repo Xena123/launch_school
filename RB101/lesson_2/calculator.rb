@@ -1,5 +1,5 @@
 require 'yaml'
-MESSAGES = YAML.load_file('calculator_messages.yml')
+MESSAGES = YAML.load_file('mort_messages.yml')
 
 def prompt(message)
   puts "=> #{message}"

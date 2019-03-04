@@ -1,0 +1,10 @@
+welcome: "Welcome to the Mortgage Calculator! What is your name?"
+valid_name: "Make sure to enter a valid name."
+greeting: 'Hello %{name}'
+loan_amount: "What is the total value of your loan? ie. 100,000"
+apr: "What is your annual percentage rate (APR)? ie. 4.2"
+loan_dur: "How long would you like to take the loan out for? Please enter duration in years."
+not_number: "That doesnt look like a valid number."
+operation: "Calculating your mortgage....."
+result: 'The result is %{result} per month'
+another_calc: "Do you want to perform another calculation? (y/n)"
