@@ -5,16 +5,14 @@ def prompt(message)
   puts "=> #{message}"
 end
 
-def integer?(num)
-  num.to_i.to_s == num
+def valid_amount?(input)
+  # if input is a neg number or empty the method will return true
+  input.to_i <= 0 || input.empty?
 end
 
-def float?(num)
-  !!Float(num) rescue false
-end
-
-def number?(num)
-  integer?(num) || float?(num)
+def valid_duration?(input)
+  # if input is a float or empty or 0 the method will return false
+  input.to_i.to_s == input && !input.empty? && input.to_i != 0
 end
 
 prompt(MESSAGES['welcome'])
@@ -38,42 +36,45 @@ prompt(format(MESSAGES['greeting'], name: name))
 loop do
   loop do
     prompt(MESSAGES['loan_amount'])
-    loan_amount = gets.chomp.gsub(/[\s,]/ ,"")
-    if number?(loan_amount)
-      break
-    else
+    # Delete commas and spaces from input
+    loan_amount = gets.chomp.gsub(/[\s,]/, "")
+    # if true - prompt user for another number
+    if valid_amount?(loan_amount)
       prompt(MESSAGES['not_number'])
+    # otherwise break out of the loop
+    else
+      break
     end
   end
 
   loop do
     prompt(MESSAGES['apr'])
-    apr = gets.chomp.gsub(/[^0-9,.]/, "")
-    if number?(apr)
-      break
-    else
+    apr = gets.chomp
+    # if true - prompt user for another number
+    if valid_amount?(apr)
       prompt(MESSAGES['not_number'])
+    # otherwise break out of the loop
+    else
+      break
     end
   end
 
   loop do
     prompt(MESSAGES['loan_dur'])
     loan_duration = gets.chomp
-    if number?(loan_duration)
-      if loan_duration.to_i <= 40
-        break
-      else
-        prompt("Please enter a loan duration less than 40 years")
-      end
+    # if true - break out of the loop
+    if valid_duration?(loan_duration)
+      break
+    # otherwise ask for a valid number
     else
-      prompt(MESSAGES['not_number'])
+      prompt(MESSAGES['not_duration'])
     end
   end
 
   prompt(MESSAGES['operation'])
 
   loan_amount = loan_amount.to_i
-  loan_dur_months = loan_duration.to_i * 12
+  loan_dur_months = loan_duration.to_f * 12
   monthly_int = apr.to_f / 100 / 12
 
   result = loan_amount * (monthly_int / (1 - (1 + monthly_int)**(-loan_dur_months)))
@@ -83,9 +84,10 @@ loop do
 
   prompt(format(MESSAGES['result'], result: result))
   prompt(MESSAGES['another_calc'])
-  answer = gets.chomp
+  answer = gets.chomp.downcase
   if answer == 'y'
     system('clear') || system('cls')
+  else
+    break
   end
-  break unless answer == 'y'
 end
