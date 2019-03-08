@@ -16,6 +16,9 @@ WINNING_CHOICES = {
   'lizard' => ['paper', 'spock']
 }
 
+user_score = 0
+computer_score = 0
+
 def prompt(message)
   puts "=> #{message}"
 end
@@ -49,22 +52,10 @@ def display_results(player, computer)
   end
 end
 
-def display_score(player, computer)
-  user_score = 0
-  computer_score = 0
-  if win?(player, computer)
-    user_score += 1
-  elsif win?(computer, player)
-    computer_score += 1
-  else
-    puts "No points for anyone"
-  end
-  puts "Your score: #{user_score} Computer's score: #{computer_score}"
-end
-
 choice = ''
 
 loop do
+  system('clear') || system('cls')
   loop do
     prompt("Choose one: #{VALID_CHOICES.join(', ')}")
     choice = gets.chomp
@@ -84,8 +75,14 @@ loop do
 
   prompt("You chose #{choice}, computer chose #{computer_choice}")
 
+  if win?(choice, computer_choice)
+    user_score += 1
+  elsif win?(computer_choice, choice)
+    computer_score += 1
+  end
+
   display_results(choice, computer_choice)
-  display_score(choice, computer_choice)
+  prompt("Your score: #{user_score} Computer score: #{computer_score}")
 
   prompt("Do you want to play again? (y for yes)")
   answer = gets.chomp
