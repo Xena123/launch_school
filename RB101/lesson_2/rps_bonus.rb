@@ -58,13 +58,19 @@ loop do
   system('clear') || system('cls')
   loop do
     prompt("Choose one: #{VALID_CHOICES.join(', ')}")
+    prompt("OR you can type the following for shortcut keys:")
+    print "=>"
+    SHORTCUTS.each do |key, value|
+      print "'#{key}' for #{value}, "
+    end
+    puts "\n"
     choice = gets.chomp
 
     if choice.length == 1
       choice = convert_shortcut(choice)
     end
 
-    if valid_choice?(choice) 
+    if valid_choice?(choice)
       break
     else
       prompt("That's not a valid choice")
