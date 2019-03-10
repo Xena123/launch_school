@@ -31,6 +31,8 @@ def valid_shortcut?(input)
   if input.length == 1
     shortcut_choice = SHORTCUTS.fetch(input, '')
     VALID_CHOICES.include?(shortcut_choice)
+  else
+    false
   end
 end
 
@@ -42,10 +44,18 @@ def win?(first, second)
   WINNING_CHOICES.fetch(first).include?(second)
 end
 
+def player_won?(first,second)
+  win?(first,second)
+end
+
+def computer_won?(first, second)
+  win?(second, first)
+end
+
 def display_results(player, computer)
-  if win?(player, computer)
+  if player_won?(player, computer)
     prompt("You win!")
-  elsif win?(computer, player)
+  elsif computer_won?(player, computer)
     prompt("Computer wins!")
   else
     prompt("It's a tie!")
@@ -55,7 +65,6 @@ end
 choice = ''
 
 loop do
-  system('clear') || system('cls')
   loop do
     prompt("Choose one: #{VALID_CHOICES.join(', ')}")
     prompt("OR you can type the following for shortcut keys:")
@@ -64,7 +73,7 @@ loop do
       print "'#{key}' for #{value}, "
     end
     puts "\n"
-    choice = gets.chomp
+    choice = gets.chomp.downcase
 
     if choice.length == 1
       choice = convert_shortcut(choice)
@@ -81,17 +90,17 @@ loop do
 
   prompt("You chose #{choice}, computer chose #{computer_choice}")
 
-  if win?(choice, computer_choice)
+  if player_won?(choice, computer_choice)
     user_score += 1
-  elsif win?(computer_choice, choice)
+  elsif computer_won?(choice, computer_choice)
     computer_score += 1
   end
 
   display_results(choice, computer_choice)
   prompt("Your score: #{user_score} Computer score: #{computer_score}")
 
-  prompt("Do you want to play again? (y for yes)")
-  answer = gets.chomp
-  break unless answer.downcase == 'y'
+  prompt("Do you want to play again? ('y' for yes / anything else will exit)")
+  answer = gets.chomp.downcase
+  break unless answer == 'y'
   system('clear') || system('cls')
 end
