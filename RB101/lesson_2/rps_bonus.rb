@@ -44,8 +44,8 @@ def win?(first, second)
   WINNING_CHOICES.fetch(first).include?(second)
 end
 
-def player_won?(first,second)
-  win?(first,second)
+def player_won?(first, second)
+  win?(first, second)
 end
 
 def computer_won?(first, second)
@@ -62,12 +62,24 @@ def display_results(player, computer)
   end
 end
 
+def winning_round(player, computer)
+  if player == 5
+    prompt("You win this round!")
+  elsif computer == 5
+    prompt("Computer wins this round!")
+  end
+end
+
 choice = ''
 
 loop do
   loop do
-    prompt("Choose one: #{VALID_CHOICES.join(', ')}")
-    prompt("OR you can type the following for shortcut keys:")
+    prompt("Welcome to #{VALID_CHOICES.join(', ')}")
+    prompt("You will play against the computer")
+    prompt("Each win will get you 1 point")
+    prompt("First one to 5 points wins the round")
+    prompt("Make your first choice")
+    prompt("You can type the following for shortcut keys:")
     print "=>"
     SHORTCUTS.each do |key, value|
       print "'#{key}' for #{value}, "
@@ -98,6 +110,12 @@ loop do
 
   display_results(choice, computer_choice)
   prompt("Your score: #{user_score} Computer score: #{computer_score}")
+
+  if user_score == 5 || computer_score == 5
+    winning_round(user_score, computer_score)
+    user_score = 0
+    computer_score = 0
+  end
 
   prompt("Do you want to play again? ('y' for yes / anything else will exit)")
   answer = gets.chomp.downcase
