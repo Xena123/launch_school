@@ -18,6 +18,7 @@ WINNING_CHOICES = {
 
 user_score = 0
 computer_score = 0
+MAX_SCORE = 5
 
 def prompt(message)
   puts "=> #{message}"
@@ -63,9 +64,9 @@ def display_results(player, computer)
 end
 
 def winning_round(player, computer)
-  if player == 5
+  if player == MAX_SCORE
     prompt("You win this round!")
-  elsif computer == 5
+  elsif computer == MAX_SCORE
     prompt("Computer wins this round!")
   end
 end
@@ -111,7 +112,7 @@ loop do
   display_results(choice, computer_choice)
   prompt("Your score: #{user_score} Computer score: #{computer_score}")
 
-  if user_score == 5 || computer_score == 5
+  if user_score == MAX_SCORE || computer_score == MAX_SCORE
     winning_round(user_score, computer_score)
     user_score = 0
     computer_score = 0
