@@ -158,3 +158,6 @@
 # p select_letter(question, 'a') # => "aaaaaaaa"
 # p select_letter(question, 't') # => "ttttt"
 # p select_letter(question, 'z') # => ""
+
+a = [5, 9, 3, 11]
+puts a.min(2)
