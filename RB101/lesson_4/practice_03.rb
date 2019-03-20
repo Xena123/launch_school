@@ -73,9 +73,64 @@
 
 # flintstones.map! { |name| name[0,3] }
 
-# Problem 7
+# # Problem 7
 
-statement = "The Flintstones Rock"
+# statement = "The Flintstones Rock"
 
-{ "F"=>1, "R"=>1, "T"=>1, "c"=>1, "e"=>2, ... }
+# #{ "F"=>1, "R"=>1, "T"=>1, "c"=>1, "e"=>2, ... }
+
+# statement = statement.delete " "
+# p statement
+# letter_count = {}
+# counter = 0
+
+# loop do
+#   current_value = statement.count "#{statement[counter]}"
+#   current_key = statement[counter]
+#   letter_count[current_key] = current_value
+#   counter += 1
+#   break if counter == statement.size
+# end
+
+# p letter_count
+
+# # Correct solution
+
+# result = {}
+# letters = ('A'..'Z').to_a + ('a'..'z').to_a
+# p letters
+# letters.each do |letter|
+#   letter_frequency = statement.scan(letter).count
+#   result[letter] = letter_frequency if letter_frequency > 0
+# end
+# p result
+
+# # Problem 8
+
+# numbers = [1, 2, 3, 4]
+# numbers.each do |number|
+#   p number
+#   numbers.shift(1)
+#   p numbers
+# end
+
+# # 1
+# # 3
+
+# The each method is using the updated numbers array to iterate over so even though it has deleted the item at index 0 it still will continue onto index 1 of the numbers array (which is now [2,3,4]) so it skips 2 and iterates over 3. Then stops because the array now only has 2 items ([2,4]) in it and it believes it needs to continue to index 2 of the array which doesnt exist now.
+
+# numbers = [1, 2, 3, 4]
+# numbers.each do |number|
+#   p number
+#   numbers.pop(1)
+# end
+
+# # 1
+# # 2
+
+
+
+
+
+
 
