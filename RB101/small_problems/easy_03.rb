@@ -160,21 +160,106 @@
 #   odd_elements
 # end
 
+# # Problem 8
+
+# # Write a method that takes a string as an argument
+# # if the string is a palindrome it returns true
+# #   if not it returns false
+
+# def palindrome?(str)
+#   if str == str.reverse
+#     true
+#   end
+# end
+
+# p palindrome?('madam') == true
+# p palindrome?('Madam') == false          # (case matters)
+# p palindrome?("madam i'm adam") == false # (all characters matter)
+# p palindrome?('356653') == true
+
+# # Problem 9
+
+# # Write a method using above method
+# # Needs to strip out commas and apostophes
+# # And call downcase on the string
+
+# def real_palindrome?(str)
+#   str = str.downcase.gsub(/[.,']/, '').delete(' ')
+#   palindrome?(str)
+# end
+
+# p real_palindrome?('madam') == true
+# p real_palindrome?('Madam') == true           # (case does not matter)
+# p real_palindrome?("Madam, I'm Adam") == true # (only alphanumerics matter)
+# p real_palindrome?('356653') == true
+# p real_palindrome?('356a653') == true
+# p real_palindrome?('123ab321') == false
+
+# # Launch school answer
+
+# def real_palindrome?(string)
+#   string = string.downcase.delete('^a-z0-9')
+#   palindrome?(string)
+# end
 
 
+# # Problem 10
 
+# def palindromic_number?(integer)
+#   str = integer.to_s
+#   if str == str.reverse
+#     true
+#   end
+# end
 
+# p palindromic_number?(34543) == true
+# p palindromic_number?(123210) == false
+# p palindromic_number?(22) == true
+# p palindromic_number?(5) == true
 
+mailing_campaign_leads = [
+  {name: 'Emma Lopez', email: 'emma.lopez@some_mail.com', days_since_login: 423, mailing_list: true},
+  {name: 'mike richards', email: 'michael.richards@some_mail.com', days_since_login: 23, mailing_list: false},
+  {name: 'JANE WILLIAMS', email: 'jane_w95@my_mail.com', days_since_login: 16, mailing_list: true},
+  {name: 'Ash Patel', email: 'ash_patel@my_mail.com', days_since_login: 22, mailing_list: true}
+]
 
+counter = 0
 
+loop do
+  break if counter == mailing_campaign_leads.size
+  full_name = mailing_campaign_leads[counter][:name]
+  names = full_name.split
 
+  names_counter = 0
+  loop do
+    break if names_counter == names.size
+    name = names[names_counter]
+    names[names_counter] = name.capitalize
 
+    names_counter += 1
+  end
 
+  capitalized_full_name = names.join(' ')
+  mailing_campaign_leads[counter][:name] = capitalized_full_name
 
+  counter += 1
+end
 
+usable_leads = []
+counter = 0
 
+loop do
+  break if counter == mailing_campaign_leads.size
+  last_login = mailing_campaign_leads[counter][:days_since_login]
+  subscribed_to_list = mailing_campaign_leads[counter][:mailing_list]
 
+  if last_login < 60 && subscribed_to_list
+    usable_leads << mailing_campaign_leads[counter]
+  end
 
+  counter += 1
+end
 
-
-
+p mailing_campaign_leads
+p usable_leads
