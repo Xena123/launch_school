@@ -154,9 +154,94 @@
 # end
 # # => [["c", "b", "a"], [3, 2, 1], ["green", "blue", "black"]]
 
-# Problem 10
+# # Problem 10
 
-[{a: 1}, {b: 2, c: 3}, {d: 4, e: 5, f: 6}]
+# collection = [{a: 1}, {b: 2, c: 3}, {d: 4, e: 5, f: 6}]
+
+# # use map method to increment all the integers by 1
+# # need to return a new collection
+# # has to be identical in structure to the original
+
+# collection.map do |array_element|
+#   incremented_hash = {}
+#   array_element.map do |key, value|
+#     incremented_hash[key] = value + 1
+#   end
+#   incremented_hash
+# end
+
+# # Launch school answer
+
+# collection.map do |hsh|
+#   incremented_hash = {}
+#   hsh.each do |key, value|
+#     incremented_hash[key] = value + 1
+#   end
+#   incremented_hash
+# end
+# # => [{:a=>2}, {:b=>3, :c=>4}, {:d=>5, :e=>6, :f=>7}]
+
+# # Problem 11
+
+# # Use select or reject
+# # Return a new array identical in structure to original array
+# # Only containing integers that are multiples of 3 
+
+# # Select returns new array for which the block is true
+# # Multiples of 3: can use (integer / 3 == 0)?
+
+# arr = [[2], [3, 5, 7], [9], [11, 13, 15]]
+
+# arr.map do |element|
+#   element.select do |number|
+#     number % 3 == 0
+#   end
+# end
+
+# # Problem 12
+
+# arr = [[:a, 1], ['b', 'two'], ['sea', {c: 3}], [{a: 1, b: 2, c: 3, d: 4}, 'D']]
+
+
+# hsh = Hash[arr.map {|key, value| [key, value]}]
+
+# # Launch school answer
+
+# hsh = {}
+# arr.each do |item|
+#   hsh[item[0]] = item[1]
+# end
+# hsh
+
+# # Problem 13
+
+# arr = [[1, 6, 7], [1, 4, 9], [1, 8, 3]]
+
+# arr.sort_by do |sub_array|
+#   sub_array.select do |number|
+#     number.odd?
+#   end
+# end
+
+# Problem 14
+
+hsh = {
+  'grape' => {type: 'fruit', colors: ['red', 'green'], size: 'small'},
+  'carrot' => {type: 'vegetable', colors: ['orange'], size: 'medium'},
+  'apple' => {type: 'fruit', colors: ['red', 'green'], size: 'medium'},
+  'apricot' => {type: 'fruit', colors: ['orange'], size: 'medium'},
+  'marrow' => {type: 'vegetable', colors: ['green'], size: 'large'},
+}
+
+hsh.select do |key, value|
+  fruit_descriptions = []
+  value.select do |k, v|
+    fruit_descriptions << value[:colors]
+    fruit_descriptions << value[:size]
+  end
+  fruit_descriptions
+end
+
 
 
 
