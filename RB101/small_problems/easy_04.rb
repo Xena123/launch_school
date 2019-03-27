@@ -156,3 +156,6 @@
 #   end
 #   sum
 # end
+
+# Problem 6
+
