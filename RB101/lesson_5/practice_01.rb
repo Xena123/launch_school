@@ -243,7 +243,17 @@ hsh.select do |key, value|
 end
 
 
+# Launch school answer
 
+hsh.map do |_, value|
+  if value[:type] == 'fruit'
+    value[:colors].map do |color|
+      color.capitalize
+    end
+  elsif value[:type] == 'vegetable'
+    value[:size].upcase
+  end
+end
 
 
 
