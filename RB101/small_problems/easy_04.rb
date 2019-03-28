@@ -157,5 +157,112 @@
 #   sum
 # end
 
-# Problem 6
+# # Problem 6
+
+# # Write a method that takes an array as an argument
+# # And returns an array with the elements as the running total of the array given
+
+# # Iterate through the array using a loop
+# # counter = 0
+# # using counter as the index
+# # first number will equal the first number
+# # second number will equal the first plus second number
+
+# def running_total(array)
+#   sum = 0
+#   array.map do |value|
+#     sum = sum + value
+#     p sum
+#   end
+# end
+
+# running_total([2, 5, 13])
+
+# # Problem 7
+
+# # Convert string to number
+
+# def string_to_integer(str)
+#   str.split(//).map do |chr| 
+#     case chr
+#     when '0' then 0
+#     when '1' then 1
+#     when '2' then 2
+#     when '3' then 3
+#     when '4' then 4
+#     when '5' then 5
+#     when '6' then 6
+#     when '7' then 7
+#     when '8' then 8
+#     when '9' then 9
+#     end
+#   end
+# end
+
+# # p string_to_integer('4321')
+
+# # Launch school answer
+
+# DIGITS = {
+#   '0' => 0, '1' => 1, '2' => 2, '3' => 3, '4' => 4,
+#   '5' => 5, '6' => 6, '7' => 7, '8' => 8, '9' => 9
+# }
+
+# def string_to_integer(string)
+#   digits = string.chars.map do |char| 
+#     DIGITS[char]
+#   end
+
+#   value = 0
+#   digits.each do |digit| 
+#     value = 10 * value + digit 
+#   end
+#   value
+# end
+
+# Problem 8
+
+# def string_to_signed_integer(string)
+#   if string[0] == '-'
+#     string[0] = ''
+#     number = string_to_integer(string)
+#     number = number - number - number
+#   elsif string[0] == '+'
+#     string[0] = ''
+#     string_to_integer(string)
+#   else
+#     string_to_integer(string)
+#   end
+# end
+
+# p string_to_signed_integer('4321') == 4321
+# p string_to_signed_integer('-570') == -570
+# p string_to_signed_integer('+100') == 100
+
+
+# # Launch school answer
+
+# def string_to_signed_integer(string)
+#   case string[0]
+#   when '-' then -string_to_integer(string[1..-1])
+#   when '+' then string_to_integer(string[1..-1])
+#   else          string_to_integer(string)
+#   end
+# end
+
+# # Problem 9
+
+# DIGITS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+
+# def integer_to_string(number)
+#   result = ''
+#   loop do
+#     number, remainder = number.divmod(10)
+#     result.prepend(DIGITS[remainder])
+#     break if number == 0
+#   end
+#   result
+# end
+
+# integer_to_string(4321)
 
