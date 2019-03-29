@@ -47,12 +47,31 @@
 # remainder converted into minutes
 # (.33 * 100 / 60) * 100 = minutes
 
-The Integer divmod method and the % (modulus) operator may prove useful in your solution. 
-You may also find Kernel format handy for formatting your results.
+# The Integer divmod method and the % (modulus) operator may prove useful in your solution. 
+# You may also find Kernel format handy for formatting your results.
 
 MINUTES_PER_HOUR = 60
 HOURS_PER_DAY = 24
-MINUTES_PER_DAY = HOURS_PER_DAY * MINUTES_PER_HOUR
+MINUTES_PER_DAY = HOURS_PER_DAY * MINUTES_PER_HOUR # 1440
 
+def time_of_day(time)
+  time_in_hours = (MINUTES_PER_DAY + time.to_f) / 60
+  time_in_hours = time_in_hours.round(2)
+  remainder_minutes = time_in_hours % 1
+  remainder_minutes = remainder_minutes.round(2)
+  converted_minutes = remainder_minutes * 60
+  hours = time_in_hours.to_i
+  format('%02d:%02d', hours, converted_minutes)
+end
 
+# Launch school answer
+
+def time_of_day(delta_minutes)
+  delta_minutes = 35 % 1440
+  delta_minutes =  delta_minutes % MINUTES_PER_DAY
+  hours, minutes = delta_minutes.divmod(MINUTES_PER_HOUR)
+  format('%02d:%02d', hours, minutes)
+end
+
+time_of_day(35)
 
